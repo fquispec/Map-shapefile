@@ -1,0 +1,201 @@
+## Llamado o activación de las librerías
+library(extrafont) # Diferentes tipos de letras
+library(sf)        # Lectura de datos vectoriales
+library(tmap)      # Creación de mapas temáticos
+library(cptcity)   # Paleta de colores variados
+library(tidyverse) # Ciencia de datos 
+library(ggplot2)
+library(gridExtra) # Plot en varias columnas y filas
+setwd('C:/Users/aleja/Downloads/Paises_Mundo')
+myshp <- st_read('Paises_Mundo.shp')
+names(myshp)
+summary(myshp)
+###################################
+#Water - 2010
+###################################
+g1=tm_shape(myshp) +
+  tm_polygons(col = 'BASIC',
+              title = '',
+              palette = 'Oranges',
+              breaks=c(50, 60, 70, 80, 90, 100)) +
+  tmap_options(inner.margins = c(0.05,0.02, 0.01,0.01))+
+  tm_layout(frame = T,
+            main.title = 'A1) Basic service',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left') +
+  tm_text('FIRST_IDDP',
+          size = 0.8,
+          fontface = 2,
+          fontfamily = 'Tw Cen MT Condensed') #margins(bottom, left, top,right)
+#g1
+g2=tm_shape(myshp) +
+  tm_polygons(col = 'LIMITED',title = '', palette = 'Oranges',
+              breaks=c(seq(0, 4, by=0.8)))+
+  tm_layout(frame = T,
+            main.title = 'A2) Limited service',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+
+g3=tm_shape(myshp) +
+  tm_polygons(col = 'OTHER_UNI',title = '', palette = 'Oranges',
+              breaks=c(0, 3, 6, 10, 24, 40)) +
+  tm_layout(frame = T,
+            main.title = 'A3) Other unimproved',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+
+g4=tm_shape(myshp) +
+  tm_polygons(col = 'SURFACE',title = '', palette = 'Oranges',
+              breaks=c(0, 3, 6, 10, 24, 40))+
+  tm_layout(frame = T,
+            main.title = 'A4) Surface',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+###################################
+#Water - 2016
+###################################
+g5=tm_shape(myshp) +
+  tm_polygons(col = 'W_BASIC2',title = '', palette = 'Oranges',
+              breaks=c(50, 60, 70, 80, 90, 100))+
+  tm_layout(frame = T,
+            main.title = 'B1) Basic service',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+
+g6=tm_shape(myshp) +
+  tm_polygons(col = 'W_LIMITED2',title = '', palette = 'Oranges',
+              breaks=c(seq(0, 4, by=0.8)))+
+  tm_layout(frame = T,
+            main.title = 'B2) Limited service',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+  
+g7=tm_shape(myshp) +
+  tm_polygons(col = 'W_OTHER_U2',title = '', palette = 'Oranges',
+              breaks=c(0, 3, 6, 10, 24, 40))+
+  tm_layout(frame = T,
+            main.title = 'B3) Other unimproved',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+
+g8=tm_shape(myshp) +
+  tm_polygons(col = 'W_SURFACE2',title = '', palette = 'Oranges',
+              breaks=c(0, 3, 6, 10, 24, 40))+
+  tm_layout(frame = T,
+            main.title = 'B4) Surface',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+
+names(myshp)
+###################################
+#SANITATION - 2010
+###################################
+g9=tm_shape(myshp) +
+  tm_polygons(col = 'S_BASIC',
+              title = '',
+              palette = 'Oranges',
+              breaks=c(16, 30, 40, 50, 60, 70, 92)) +
+  tmap_options(inner.margins = c(0.05,0.02, 0.01,0.01))+
+  tm_layout(frame = T,
+            main.title = 'C1) Basic sanitation',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left') #margins(bottom, left, top,right)
+#g1
+g10=tm_shape(myshp) +
+  tm_polygons(col = 'S_LIMITED',title = '', palette = 'Oranges',
+              breaks=c(0, 1, 3, 6, 10, 15, 20))+
+  tm_layout(frame = T,
+            main.title = 'C2) Limited sanitation',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+#g10
+g11=tm_shape(myshp) +
+  tm_polygons(col = 'S_OTHER_UN',title = '', palette = 'Oranges',
+              breaks=c(0, 5, 10, 15, 20, 25, 36)) +
+  tm_layout(frame = T,
+            main.title = 'C3) Other unimproved s.',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+
+g12=tm_shape(myshp) +
+  tm_polygons(col = 'S_OPEN_D',title = '', palette = 'Oranges',
+              breaks=c(0, 4, 10, 20, 35, 50, 70))+
+  tm_layout(frame = T,
+            main.title = 'C4) Open defecation',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+###################################
+#SANITATION - 2016
+###################################
+g13=tm_shape(myshp) +
+  tm_polygons(col = 'S_BASIC2',title = '', palette = 'Oranges',
+              breaks=c(16, 30, 40, 50, 60, 70, 92))+
+  tm_layout(frame = T,
+            main.title = 'D1) Basic sanitation',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+
+g14=tm_shape(myshp) +
+  tm_polygons(col = 'S_LIMITED2',title = '', palette = 'Oranges',
+              breaks=c(0, 1, 3, 6, 10, 15, 20))+
+  tm_layout(frame = T,
+            main.title = 'D2) Limited sanitation',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+#g14
+g15=tm_shape(myshp) +
+  tm_polygons(col = 'S_OTHER_U2',title = '', palette = 'Oranges',
+              breaks=c(0, 5, 10, 15, 20, 25, 36))+
+  tm_layout(frame = T,
+            main.title = 'D3) Other unimproved s.',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+
+g16=tm_shape(myshp) +
+  tm_polygons(col = 'S_OPEN_DE2',title = '', palette = 'Oranges',
+              breaks=c(0, 4, 10, 20, 35, 50, 70))+
+  tm_layout(frame = T,
+            main.title = 'D4) Open defecation',
+            main.title.size = 0.9,
+            fontface = 2,
+            fontfamily = 'Tw Cen MT Condensed',
+            main.title.position = 'left')
+###################################
+#PLOT
+###################################
+pi= tmap_arrange(g1, g2, g3, g4, g5, g6, g7, g8,
+                 g9,g10,g11,g12,g13,g14,g15,g16, ncol=4,nrow=4)
+#pi
+tmap_save(pi, width = 8.3,height = 11.7,"plot 2.jpg")
+
+
